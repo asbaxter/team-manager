@@ -1,4 +1,8 @@
+const fs = require("fs");
 const inquirer = require("inquirer");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
 
 function promptUser(){
     inquirer
@@ -26,7 +30,7 @@ function promptUser(){
       }
     ])
     .then(function ({ name, id, email, title }){
-        
+        let employees;
         if (title == "Manager"){
             inquirer
             .prompt([
@@ -37,10 +41,8 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                console.log(name)
-                console.log(id)
-                console.log(email)
-                console.log(titleAttribute)
+                employees = new Manager(name, id, email, titleAttribute);
+                console.log(employees);
             })
         } else if(title == "Engineer"){
             inquirer
@@ -52,10 +54,8 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                console.log(name)
-                console.log(id)
-                console.log(email)
-                console.log(titleAttribute)
+                employees = new Engineer(name, id, email, titleAttribute);
+                console.log(employees);
             })
         } else{
             inquirer
@@ -67,10 +67,8 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                console.log(name)
-                console.log(id)
-                console.log(email)
-                console.log(titleAttribute)
+                employees = new Intern(name, id, email, titleAttribute);
+                console.log(employees);
             })
 
         }
