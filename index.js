@@ -4,6 +4,8 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+let employees = [];
+
 function promptUser(){
     inquirer
     .prompt([
@@ -30,7 +32,7 @@ function promptUser(){
       }
     ])
     .then(function ({ name, id, email, title }){
-        let employees;
+        let employee;
         if (title == "Manager"){
             inquirer
             .prompt([
@@ -41,8 +43,9 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                employees = new Manager(name, id, email, titleAttribute);
-                console.log(employees);
+                employee = new Manager(name, id, email, titleAttribute);
+                employees.push(employee);
+                addEmployee();
             })
         } else if(title == "Engineer"){
             inquirer
@@ -54,8 +57,9 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                employees = new Engineer(name, id, email, titleAttribute);
-                console.log(employees);
+                employee = new Engineer(name, id, email, titleAttribute);
+                employees.push(employee);
+                addEmployee();
             })
         } else{
             inquirer
@@ -67,14 +71,34 @@ function promptUser(){
                 }
             ])
             .then(function ({titleAttribute}){
-                employees = new Intern(name, id, email, titleAttribute);
-                console.log(employees);
+                employee = new Intern(name, id, email, titleAttribute);
+                employees.push(employee);
+                addEmployee();
             })
 
         }
+    }) 
+}
+
+function addEmployee() {
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            message: "Would you like to add another employee",
+            choices: ["Yes", "No"],
+            name: "addEmployees"
+        }
+    ])
+    .then(function ({ addEmployees }){
+        if (addEmployees == 'Yes'){
+            promptUser();
+        }
+        else {
+            console.log(employees)
+        }
     })
 
-   
 }
 
 promptUser();
