@@ -2,6 +2,9 @@
 
 ![alt text](./assets/images/team-manager-screenshot.png)
 
+## Video Demo
+# https://watch.screencastify.com/v/2cknukRDDH3iEN2HqGIX
+
 ## User Story
 AS A manager</br>
 I WANT to generate a webpage that displays my team's basic info</br>
