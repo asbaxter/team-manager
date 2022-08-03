@@ -45,7 +45,7 @@ function promptUser(){
             .then(function ({titleAttribute}){
                 employee = new Manager(name, id, email, titleAttribute);
                 employees.push(employee);
-                addEmployee();
+                addEmployeePrompt();
             })
         } else if(title == "Engineer"){
             inquirer
@@ -59,7 +59,7 @@ function promptUser(){
             .then(function ({titleAttribute}){
                 employee = new Engineer(name, id, email, titleAttribute);
                 employees.push(employee);
-                addEmployee();
+                addEmployeePrompt();
             })
         } else{
             inquirer
@@ -73,14 +73,14 @@ function promptUser(){
             .then(function ({titleAttribute}){
                 employee = new Intern(name, id, email, titleAttribute);
                 employees.push(employee);
-                addEmployee();
+                addEmployeePrompt();
             })
 
         }
     }) 
 }
 
-function addEmployee() {
+function addEmployeePrompt() {
     inquirer
     .prompt([
         {
@@ -95,10 +95,75 @@ function addEmployee() {
             promptUser();
         }
         else {
-            console.log(employees)
+            createHTML();
         }
     })
 
 }
+function createHTML(){
+    
+    
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Manager</title>
+    </head>
+    <body>
+        <header>
+            <h1>Team Manager</h1>
+        </header>
+        
+    </body>
+    </html>
+    `
 
+    fs.writeFile("./dist/index.html", html, function (err) {
+        if (err) {
+          console.log(err);
+        }
+    })
+    createEmployeeCards();
+};
+function createEmployeeCards(){
+    for (let i = 0; i < employees.length; i++){
+
+        let jobAttribute;
+        let attributeName;
+
+        if (employees[i].office != null){
+            console.log("created Manager")
+            jobAttribute = employees[i].office;
+            attributeName = 'Office #:';
+        }
+        else if(employees[i].github != null){
+            console.log("created engineer")
+            jobAttribute = employees[i].github;
+            attributeName = 'GitHub: ';
+        } else {
+            console.log("created intern")
+            jobAttribute = employees[i].school;
+            attributeName = 'School: ';
+        }
+
+        let employeeHTML = `
+            <div>
+                <h2>${employees[i].name}</h2>
+                <ul>
+                    <li>ID: ${employees[i].id}</li>
+                    <li>Email: ${employees[i].email}</li>
+                    <li>${attributeName + jobAttribute}</li>
+                </ul>
+            </div>
+        `
+        fs.appendFile("./dist/index.html", employeeHTML, function (err) {
+            if (err) {
+              return reject(err);
+            }
+            return resolve();
+          });
+    };
+};
 promptUser();
