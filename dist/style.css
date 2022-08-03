@@ -1,0 +1,23 @@
+
+    header {
+        text-align: center;
+    }
+    li {
+        list-style: none;
+    }
+    #employeeCard{
+        border: black solid 2px;
+        margin: 20px;
+    }
+    #employeeHeader{
+        text-align: center;
+    }
+    #employeeInfo{
+        padding: 5px;
+    }
+    #employeeInfo ul li{
+        border: grey solid .5px; 
+        padding: 5px;
+    }
+    
+    
