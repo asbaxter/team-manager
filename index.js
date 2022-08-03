@@ -181,7 +181,7 @@ function createEmployeeCards(){
             <div id="employeeInfo">
                 <ul>
                     <li>ID: ${employees[i].id}</li>
-                    <li>Email: ${employees[i].email}</li>
+                    <li>Email: <a href="mailto:${employees[i].email}">${employees[i].email}</a></li>
                     <li>${attributeName + jobAttribute}</li>
                 </ul>
             </div>
@@ -201,8 +201,12 @@ function createEmployeeCards(){
 function generateCSS(){
 
     const css = `
+
     header {
         text-align: center;
+        background-color: #E84756;
+        color: white;
+        padding: 50px;
     }
     li {
         list-style: none;
@@ -210,19 +214,27 @@ function generateCSS(){
     #employeeCard{
         border: black solid 2px;
         margin: 20px;
+        box-shadow: 10px 10px 5px lightblue;
     }
     #employeeHeader{
         text-align: center;
+        background-color: #0077F7;
+        color: white;
+        padding: 10px;
+        margin-top: -1px;
+        margin-right: -16px;
+        margin-left: -16px;
     }
     #employeeInfo{
         padding: 5px;
+        margin-top: 10px;
     }
     #employeeInfo ul li{
         border: grey solid .5px; 
         padding: 5px;
     }
     #icons{
-        height: 60px;
+        height: 40px;
         margin-right: 25px;
     }
     
