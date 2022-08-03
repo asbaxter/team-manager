@@ -129,6 +129,25 @@ function createHTML(){
     })
     createEmployeeCards();
 };
+
+function footerHTML(){
+    const htmlEnd = `
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+    </html>
+    `
+    fs.appendFile("./dist/index.html", htmlEnd, function (err) {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+
+    generateCSS();
+}
 function createEmployeeCards(){
     for (let i = 0; i < employees.length; i++){
 
@@ -139,22 +158,25 @@ function createEmployeeCards(){
             jobTitle = 'Manager';
             jobAttribute = employees[i].office;
             attributeName = 'Office #:';
+            jobIcon = '../assets/images/management.png'
         }
         else if(employees[i].github != null){
             jobTitle = 'Engineer';
             jobAttribute = employees[i].github;
             attributeName = 'GitHub: ';
+            jobIcon = '../assets/images/engineer.png'
         } else {
             jobAttribute = employees[i].school;
             jobTitle = 'Intern';
             attributeName = 'School: ';
+            jobIcon = '../assets/images/internship.png'
         }
 
         let employeeHTML = `
         <div class="col-sm-12 col-md-3"id="employeeCard">
             <div id="employeeHeader">
                 <h2>${employees[i].name}</h2>
-                <h3>${jobTitle}</h3>
+                <h3><img src="${jobIcon}" alt="" id="icons">${jobTitle}</h3>
             </div>
             <div id="employeeInfo">
                 <ul>
@@ -173,41 +195,8 @@ function createEmployeeCards(){
             return resolve();
           });
     };
-    const htmlEnd = `
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
-    </html>
-    `
-    fs.appendFile("./dist/index.html", htmlEnd, function (err) {
-        if (err) {
-          return reject(err);
-        }
-        return resolve();
-      });
-      footerHTML();
+    footerHTML();
 };
-function footerHTML(){
-    const htmlEnd = `
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
-    </html>
-    `
-    fs.appendFile("./dist/index.html", htmlEnd, function (err) {
-        if (err) {
-          return reject(err);
-        }
-        return resolve();
-      });
-
-      generateCSS();
-}
-
 
 function generateCSS(){
 
@@ -231,6 +220,10 @@ function generateCSS(){
     #employeeInfo ul li{
         border: grey solid .5px; 
         padding: 5px;
+    }
+    #icons{
+        height: 60px;
+        margin-right: 25px;
     }
     
     `
